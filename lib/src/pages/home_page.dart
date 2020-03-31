@@ -37,6 +37,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR() async {
+    //geo:40.67634085948375,-73.93178358515628
+    //https://fernando-herrera.com
     print('scan QR...');
     String futureString = '';
 
