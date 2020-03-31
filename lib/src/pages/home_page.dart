@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Scanner'),
+        title: Text('QR Scanner - RPApos'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
@@ -44,6 +44,13 @@ class _HomePageState extends State<HomePage> {
 
     try {
       futureString = await BarcodeScanner.scan();
+
+      showDialog(
+          context: context,
+          child: new AlertDialog(
+            title: new Text("QR Scanner - RPApos"),
+            content: new Text(futureString),
+          ));
     } catch (error) {
       futureString = error.toString();
     }
