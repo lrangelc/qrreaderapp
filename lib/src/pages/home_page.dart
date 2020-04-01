@@ -79,44 +79,40 @@ class _HomePageState extends State<HomePage> {
   _scanQR(BuildContext context) async {
     //geo:40.67634085948375,-73.93178358515628
     //https://fernando-herrera.com
-    
+
     print('scan QR...');
-    // String futureString = '';
-    String futureString = 'https://fernando-herrera.com';
+    String futureString;
+    // String futureString = 'https://fernando-herrera.com';
 
-    // try {
-    //   futureString = await BarcodeScanner.scan();
+    try {
+      futureString = await BarcodeScanner.scan();
 
-    //   showDialog(
-    //       context: context,
-    //       child: new AlertDialog(
-    //         title: new Text("QR Scanner - RPApos"),
-    //         content: new Text(futureString),
-    //       ));
-    // } catch (error) {
-    //   futureString = error.toString();
-    // }
+      if (futureString != null) {
+        if (futureString.contains('http') || futureString.contains('geo')) {
+          final scan = ScanModel(value: futureString);
 
-    // print('Future String: $futureString');
+          // DBProvider.db.addScan(scan);
+          scansBloc.agregarScan(scan);
 
-    if (futureString != null) {
-      final scan = ScanModel(value: futureString);
-
-      // DBProvider.db.addScan(scan);
-      scansBloc.agregarScan(scan);
-
-      final scan2 =
-          ScanModel(value: 'geo:40.67634085948375,-73.93178358515628');
-      scansBloc.agregarScan(scan2);
-
-      if (Platform.isIOS) {
-        Future.delayed(Duration(milliseconds: 750), () {
-          utils.abrirScan(context, scan);
-        });
-      } else {
-        utils.abrirScan(context, scan);
+          if (Platform.isIOS) {
+            Future.delayed(Duration(milliseconds: 750), () {
+              utils.abrirScan(context, scan);
+            });
+          } else {
+            utils.abrirScan(context, scan);
+          }
+        } else {
+          showDialog(
+              context: context,
+              child: new AlertDialog(
+                title: new Text("QR Scanner - RPApos"),
+                content: new Text(futureString),
+              ));
+        }
+        print('Tenemos informacion: $futureString');
       }
-      print('Tenemos informacion: $futureString');
+    } catch (error) {
+      futureString = error.toString();
     }
   }
 
@@ -144,7 +140,7 @@ class _HomePageState extends State<HomePage> {
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.map), title: Text('Mapas')),
         BottomNavigationBarItem(
-            icon: Icon(Icons.brightness_5), title: Text('Direcciones')),
+            icon: Icon(Icons.cloud_circle), title: Text('Direcciones')),
       ],
     );
   }
