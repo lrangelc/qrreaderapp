@@ -1,3 +1,5 @@
+import 'package:latlong/latlong.dart';
+
 class ScanModel {
   int id;
   String type;
@@ -8,10 +10,10 @@ class ScanModel {
     this.type,
     this.value,
   }) {
-    if (this.value.contains('htttp')) {
+    if (this.value.contains('http')) {
       this.type = 'http';
     } else {
-      this.type = 'gep';
+      this.type = 'geo';
     }
   }
 
@@ -26,4 +28,13 @@ class ScanModel {
         "type": type,
         "value": value,
       };
+
+  LatLng getLatLng() {
+    //geo:40.67634085948375,-73.93178358515628
+    final lalo = value.substring(4).split(',');
+    final lat = double.parse(lalo[0]);
+    final lng = double.parse(lalo[1]);
+
+    return LatLng(lat, lng);
+  }
 }

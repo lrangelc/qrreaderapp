@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import 'package:qrreaderapp/src/models/scan_model.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:qrreaderapp/src/models/scan_model.dart';
+export 'package:qrreaderapp/src/models/scan_model.dart';
 
 class DBProvider {
   static Database _database;
@@ -35,7 +36,7 @@ class DBProvider {
     });
   }
 
-  nuevoScanRaw(ScanModel nuevoScan) async {
+  addScanRaw(ScanModel nuevoScan) async {
     final db = await database;
     final String sql = "INSERT INTO scan("
         "id,"
@@ -53,7 +54,7 @@ class DBProvider {
     return res;
   }
 
-  nuevoScan(ScanModel nuevoScan) async {
+  addScan(ScanModel nuevoScan) async {
     final db = await database;
     final res = await db.insert('scan', nuevoScan.toJson());
 
