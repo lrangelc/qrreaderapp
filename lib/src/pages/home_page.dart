@@ -42,24 +42,24 @@ class _HomePageState extends State<HomePage> {
     print('scan QR...');
     String futureString = '';
 
-    try {
-      futureString = await BarcodeScanner.scan();
+    // try {
+    //   futureString = await BarcodeScanner.scan();
 
-      showDialog(
-          context: context,
-          child: new AlertDialog(
-            title: new Text("QR Scanner - RPApos"),
-            content: new Text(futureString),
-          ));
-    } catch (error) {
-      futureString = error.toString();
-    }
+    //   showDialog(
+    //       context: context,
+    //       child: new AlertDialog(
+    //         title: new Text("QR Scanner - RPApos"),
+    //         content: new Text(futureString),
+    //       ));
+    // } catch (error) {
+    //   futureString = error.toString();
+    // }
 
-    print('Future String: $futureString');
+    // print('Future String: $futureString');
 
-    if (futureString != null) {
-      print('Tenemos informacion');
-    }
+    // if (futureString != null) {
+    //   print('Tenemos informacion');
+    // }
   }
 
   Widget _callPage(int paginaActual) {
